@@ -22,7 +22,7 @@ export default function Myprojects() {
     }
 
     const deleteProject = async (projectId:string) => {
-
+        console.log(projectId);
     }
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function Myprojects() {
         <div className="px-4 ms:px-16 lg:px-24 xl:px-32">
             {loading ? 
             <div  className="flex justify-center items-center h-[80vh]">
-                <Loader2Icon className="animate-span size-7 text-indigo-200"/>
+                <Loader2Icon className="animate-spin size-7 text-indigo-200"/>
             </div> : 
             projects.length > 0 ? 
             <div className="py-10 min-h-[80vh]">
