@@ -16,11 +16,19 @@ export default function Sidebar({project, setProject, setIsGenerating, isGenerat
     
     const messageRef = useRef<HTMLDivElement>(null);
     const [input, setInput] = useState('');
-    
+
     const handleRollBack = async (versionId:string) => {
 
     }
 
+    const handleRevision = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsGenerating(true);
+
+        setTimeout(() => {
+            setIsGenerating(false)
+        }, 3000);
+    }
 
     useEffect(() => {
         if (messageRef.current) {
@@ -96,10 +104,10 @@ export default function Sidebar({project, setProject, setIsGenerating, isGenerat
                     <div ref={messageRef} />
                 </div>
                 {/* -------- Input Area   -------- */}
-                <form className="m-3 relative">
+                <form onSubmit={handleRevision} className="m-3 relative">
                     <div className="flex items-center gap-2">
                         <textarea onChange={(e) => setInput(e.target.value)} value={input} rows={4} placeholder="Build a WebApp or ask for changes" className="flex-1 rounded-xl p-3 resize-none text-sm outline-none ring ring-gray-700 focus:ring-indigo-500 bg-gray-800 text-gray-100 placeholder-gray-400 transition-all" disabled={isGenerating}/>
-                        <button className="">
+                        <button disabled={isGenerating || !input.trim()} className="absolute bottom-2.5 right-2.5 rounded-full bg-linear-to-r from-indigo-500 to-indigo-600 text-white transition-colors disabled:opacity-60 hover:from-indigo-600 hover:to-indigo-700">
                         {
                             isGenerating ? 
                             <Loader2Icon className="size-7 animate-spin text-white p-1.5"/> :
