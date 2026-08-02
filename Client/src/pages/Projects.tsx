@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import type { Project } from "../Types";
 import { ArrowBigDownDashIcon, EyeIcon, EyeOffIcon, FullscreenIcon, LaptopIcon, Loader2Icon, LoaderIcon, MessageSquareIcon, SaveIcon, SmartphoneIcon, TabletIcon, XIcon } from "lucide-react";
 import { dummyConversations, dummyProjects } from "../assets/assets";
+import Sidebar from "../components/Sidebar";
 
 
 
@@ -102,7 +103,12 @@ export default function Projects() {
                 </div>
             </div>
            <div className="flex flex-1 overflow-auto">
-                <div>Sidebar</div>
+                <Sidebar project={project}
+                    setProject={setProject}
+                    isGenerating={isGenerating}
+                    setIsGenerating={setIsGenerating}
+                    isMenuOpen={isMenuOpen} 
+                />
                 <div className="flex-1 pl-0 p-2">Project Preview</div>
            </div>
 
