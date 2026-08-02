@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import type { Project } from "../Types";
 import { iframeScript } from "../assets/assets";
 import EditorPanel from "./EditorPanel";
@@ -41,7 +41,7 @@ export default forwardRef<ProjectPreviewRef, ProjectPreviewProps>(
       }
     };
 
-    // Update the
+    // Update the Web created by AI
     const handleUpdate = (updates: any) => {
       if (iframeRef.current?.contentWindow) {
         iframeRef.current?.contentWindow.postMessage(
@@ -53,6 +53,22 @@ export default forwardRef<ProjectPreviewRef, ProjectPreviewProps>(
         );
       }
     };
+
+    useImperativeHandle(ref,() => ({
+        getCode: () => {
+            const doc = iframeRef.current?.contentDocument;
+            if (!doc) return undefined;
+
+            // 1. Remove Our selection Class/ attributes /outline from all elements
+            doc.querySelectorAll('.ai-selected-element, [data-ai-selected]').forEach((el) => {
+                el.classList.remove('ai-selected-element');
+                el.removeAttribute('data-ai-selected');
+                (el as HTMLElement).style.outline = "";
+            })
+
+            // 2. Remove injected Style + Script from Element
+        }
+    }))
 
     useEffect(() => {
       const handleMessage = (event: MessageEvent) => {
