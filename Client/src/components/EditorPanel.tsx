@@ -47,7 +47,7 @@ export default function EditorPanel({
   if (!selectedElement || !values) return null;
 
   return (
-    <div className="absolute top-4 right-4  w-80 rounded-lg bg-white shadow-xl border border-gray-200 animate-in fade-in p-4 z-50 slide-in-from-right-5">
+    <div className="absolute top-4 right-4  w-80 rounded-lg bg-white shadow-xl border border-gray-200 animate-fade-in fade-in p-4 z-50">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-gray-800 font-semibold">Edit Element</h3>
         <button

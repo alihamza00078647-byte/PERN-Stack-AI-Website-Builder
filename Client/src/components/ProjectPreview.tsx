@@ -66,7 +66,17 @@ export default forwardRef<ProjectPreviewRef, ProjectPreviewProps>(
                 (el as HTMLElement).style.outline = "";
             })
 
-            // 2. Remove injected Style + Script from Element
+            // 2. Remove injected Style + Script from Elementy
+            const previewStyle = doc.getElementById('ai-preview-style');
+            if (previewStyle) previewStyle.remove();
+
+            const previewScript = doc.getElementById('ai-preview-script');
+            if (previewScript) previewScript.remove();
+
+            // 3. Serialize the clean HTML
+            const html = doc.documentElement.outerHTML;
+            return html;
+
         }
     }))
 
