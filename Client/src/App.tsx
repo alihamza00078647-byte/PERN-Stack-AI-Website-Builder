@@ -8,7 +8,8 @@ import Community from "./pages/Community";
 import View from "./pages/View";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
+import {Toaster} from "sonner";
+import AuthPage from "./pages/auth/AuthPage";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <>
+      <Toaster />
       {!hide && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -32,6 +34,8 @@ function App() {
         <Route path="/preview/:projectId/:versionId" element={<Preview />} />
         <Route path="/community" element={<Community />} />
         <Route path="/view/:projectId" element={<View />} />
+        <Route path="/auth/:pathname" element={<AuthPage />} />
+
       </Routes>
       {!hide && <Footer />}
     </>
