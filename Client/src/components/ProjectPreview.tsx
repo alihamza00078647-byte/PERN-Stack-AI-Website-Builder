@@ -14,6 +14,7 @@ export interface ProjectPreviewRef {
   getCode: () => string | undefined;
 }
 
+
 export default forwardRef<ProjectPreviewRef, ProjectPreviewProps>(
   function ProjectPreview(
     { project, isGenerating, device = "desktop", showEditorPanel = true },

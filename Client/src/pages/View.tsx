@@ -36,5 +36,9 @@ export default function View() {
     );
   }
 
-  return <div>{code && <ProjectPreview project={{current_code: code} as Project}/>}</div>;
+  return (
+     <div className="h-screen">
+      {code && <ProjectPreview isGenerating={false} showEditorPanel={false} project={{current_code: code} as Project}/>}
+    </div>
+  );
 }
