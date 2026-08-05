@@ -13,10 +13,10 @@ interface Plan {
 
 export default function Pricing() {
 
-    const [plans, setPlans] = useState<Plan[]>(appPlans);
+    const [plans] = useState<Plan[]>(appPlans);
 
-    const handlePurchase = async (planId:string) => {
-        
+    const handlePurchase = async (_planId:string) => {
+        // Placeholder for purchase flow.
     }
 
 

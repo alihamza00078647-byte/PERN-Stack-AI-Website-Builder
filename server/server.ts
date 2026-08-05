@@ -9,7 +9,7 @@ const app = express();
 // Allow URLS Cors Options
 const corsOption = {
     origin: process.env.TRUSTED_ORIGIN?.split(',') || [],
-    credential: true,
+    credentials: true,
 }
 
 
@@ -17,7 +17,7 @@ const corsOption = {
 app.use(cors(corsOption));
 app.use(express.json());
 
-app.all('/api/auth/{*any}', toNodeHandler(auth));
+app.all('/api/auth/*', toNodeHandler(auth));
 
 
 

@@ -26,16 +26,20 @@ export default function EditorPanel({
   const [values, setValues] = useState(selectedElement);
 
   const handleChange = (field: string, value: string) => {
-    let newValues = { ...values, [field]: value };
-    if (field in values?.styles) {
-      newValues.styles = { ...values?.styles, [field]: value };
+    if (!values) return;
+
+    const newValues = { ...values, [field]: value } as typeof values;
+    if (field in values.styles) {
+      newValues.styles = { ...values.styles, [field]: value };
     }
     setValues(newValues);
     onUpdate({ [field]: value });
   };
 
   const handleStyleChange = (styleName: string, value: string) => {
-    let newStyles = { ...values?.styles, [styleName]: value };
+    if (!values) return;
+
+    const newStyles = { ...values.styles, [styleName]: value };
     setValues({ ...values, styles: newStyles });
     onUpdate({ styles: { [styleName]: value } });
   };

@@ -6,7 +6,7 @@ import type { Project } from "../Types";
 import ProjectPreview from "../components/ProjectPreview";
 
 export default function Preview() {
-  const { projectId, versionId } = useParams();
+  const { projectId } = useParams();
 
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(true);

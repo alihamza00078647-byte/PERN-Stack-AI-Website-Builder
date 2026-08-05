@@ -8,16 +8,17 @@ import Community from "./pages/Community";
 import View from "./pages/View";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import {Toaster} from "sonner";
+import { Toaster } from "sonner";
 import AuthPage from "./pages/auth/AuthPage";
-
+import Setting from "./pages/setting";
 
 function App() {
+  const { pathname } = useLocation();
 
-  const {pathname} = useLocation();
-
-  const hide = pathname.startsWith('/projects/') && pathname !== '/projects' || 
-        pathname.startsWith('/view/') ||  pathname.startsWith('/preview/');
+  const hide =
+    (pathname.startsWith("/projects/") && pathname !== "/projects") ||
+    pathname.startsWith("/view/") ||
+    pathname.startsWith("/preview/");
 
   // const hideFooter = pathname.startsWith('/projects/');
 
@@ -35,11 +36,11 @@ function App() {
         <Route path="/community" element={<Community />} />
         <Route path="/view/:projectId" element={<View />} />
         <Route path="/auth/:pathname" element={<AuthPage />} />
-
+        <Route path="/account/*" element={<Setting />} />
       </Routes>
       {!hide && <Footer />}
     </>
-  )
+  );
 }
 
 export default App;
