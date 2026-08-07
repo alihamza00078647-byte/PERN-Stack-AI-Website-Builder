@@ -17,7 +17,7 @@ const corsOption = {
 app.use(cors(corsOption));
 app.use(express.json());
 
-app.all('/api/auth/*', toNodeHandler(auth));
+app.all('/api/auth/*any', toNodeHandler(auth));
 
 
 
