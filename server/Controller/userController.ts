@@ -2,6 +2,7 @@ import {Request, Response, NextFunction} from "express";
 import {auth} from "../lib/auth.js"
 import { fromNodeHeaders } from "better-auth/node";
 import { prisma } from "../lib/prisma.js";
+import { openai } from "../config/openai.js";
 
 
 // Get User Credits
@@ -74,9 +75,42 @@ export const createUserProject = async (req: Request, res: Response, next:NextFu
             data : {credits: {decrement: 5}}
         });
 
-
-
         res.json({projectId: project.id});
+
+        // Enchance user prompt
+        const promptEnchancedResponse = await openai.chat.completions.create({
+            model : "z-ai/glm-4.5-air:free",
+            messages : [
+                {
+                    role: "system",
+                    content: `You are a prompt enhancement specialist. Take the user's website request and expand it into a detailed, comprehensive prompt that will help create the best possible website.
+
+                    Enhance this prompt by:
+                    1. Adding specific design details (layout, color scheme, typography)
+                    2. Specifying key sections and features
+                    3. Describing the user experience and interactions
+                    4. Including modern web design best practices
+                    5. Mentioning responsive design requirements
+                    6. Adding any missing but important elements
+
+                    Return ONLY the enhanced prompt, nothing else. Make it detailed but concise (2-3 paragraphs max).`
+                },
+                {
+                    role: "user",
+                    content: initial_prompt
+                }
+
+            ]
+        })
+
+        const enchancePrompt = promptEnchancedResponse.choices[0].message.content;
+        
+        await prisma.conversation.create({
+            data: {
+                role: "assistant",
+                content: `I 've enchance your prompt: ${enchancePrompt}`
+            }
+        })
 
     } catch (error:any) {
         return res.status(500).json({message: error.code || error.message});
