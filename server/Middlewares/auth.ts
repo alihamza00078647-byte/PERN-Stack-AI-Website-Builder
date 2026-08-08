@@ -1,10 +1,10 @@
-import {Request, Response, NextFunction} from "express";
+import type {Request, Response, NextFunction} from "express";
 import {auth} from "../lib/auth.js";
 import { fromNodeHeaders } from "better-auth/node";
 
 
 // Get User Credits
-export const getUserCredits = async (req: Request, res: Response, next:NextFunction) => {
+export const protect = async (req: Request, res: Response, next:NextFunction) => {
     try {
         
         const session = await auth.api.getSession({

@@ -3,6 +3,7 @@ import express, { type Request, type Response } from 'express';
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth.js";
+import userRouter from "./Router/userRouter.js";
 
 const app = express();
 
@@ -15,18 +16,14 @@ const corsOption = {
 
 // Middleware
 app.use(cors(corsOption));
-app.use(express.json());
+app.use(express.json({limit: "50mb"}));
+
 
 app.all('/api/auth/*any', toNodeHandler(auth));
-
+app.use('/api/user/', userRouter);
 
 
 const port = process.env.PORT || 3000;
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Server is Live!');
-});
-
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
