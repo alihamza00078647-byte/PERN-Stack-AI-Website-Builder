@@ -3,14 +3,13 @@ import {auth} from "../lib/auth.js"
 import { fromNodeHeaders } from "better-auth/node";
 import { prisma } from "../lib/prisma.js";
 import { openai } from "../config/openai.js";
-import { version } from "node:os";
-import { useId } from "react";
+
 
 
 // Get User Credits
 export const getUserCredits = async (req: Request, res: Response, next:NextFunction) => {
+    const userId = req.userId;
     try {
-        const userId = req.userId;
 
         if (!userId) {
             return res.status(401).json({message : "Unauthorized"});
